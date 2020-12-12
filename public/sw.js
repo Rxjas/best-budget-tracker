@@ -94,14 +94,14 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches
             .match(event.request)
-            .then(response =>{
-                if(response){
+            .then(response => {
+                if (response) {
                     return response;
                 }
 
-                return fetch (event.request)
+                return fetch(event.request)
                     .then((response) => {
-                        if (!response || !response.basic || !response.status !==200){
+                        if (!response || !response.basic || !response.status !== 200) {
                             console.log('fetch response: ', response);
                             return response;
                         }
@@ -116,7 +116,7 @@ self.addEventListener('fetch', (event) => {
                             })
                             .catch(err => console.log(err));
 
-                            return response;
+                        return response;
                     });
             })
             .catch(err => console.log('error'))
