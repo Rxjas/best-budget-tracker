@@ -22,7 +22,7 @@ app.use(express.static("public"));
 //   useCreateIndex: true
 // });
 
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/todo_db', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/budget', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
