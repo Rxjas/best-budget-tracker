@@ -16,7 +16,7 @@
   * [Questions?](#Questions?)
      
   ## Preview
-  ![](INSERT FILE PATH TO IMAGE/GIF HERE)
+  ![](/gif/budgetPreview.gif)
 
   [Deployed](https://sleepy-falls-93504.herokuapp.com/)
 
