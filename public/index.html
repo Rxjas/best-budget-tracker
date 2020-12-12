@@ -4,11 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="theme-color" content="#317EFB">
+  <meta name="theme-color" content="#00a6ff">
   <link rel="shortcut icon" href="icons/icon-192x192.png" type="image/x-icon">
 
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="manifest" href="manifest.webmanifest">
 
   <title>Budget Tracker</title>
 </head>
@@ -43,5 +44,20 @@
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
   <script src="index.js"></script>
+  <script>
+    //if navigator.serviceWorker true
+    if ('serviceWorker' in navigator){
+      // compatible w/service workers
+      window.addEventListener('load', () => {
+        navigator
+          .serviceWorker
+          .register('/sw.js')
+          .then(registration => {
+            console.log('success registered SW:' + registration);
+          })
+          .catch(err=> console.log('SW registration err' + err));
+      })
+    }
+  </script>
 </body>
 </html>
