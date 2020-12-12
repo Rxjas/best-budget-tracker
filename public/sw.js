@@ -11,6 +11,7 @@ const filesToCache = [
     '/index.html',
     '/styles.css',
     '/index.js',
+    '/db.js',
     '/models/transaction.js',
     '/manifest.webmanifest',
     '/icons/icon-192x192.png',
@@ -80,44 +81,44 @@ self.addEventListener('fetch', (event) => {
         );
     };
 
-    event.respondWith(
-        caches
-            .match(event.request)
-            .then(response => {
-                return response || fetch(event.request);
-            })
-            .catch(err => console.log(err))
-    );
-
-    // another way of doing it 
     // event.respondWith(
     //     caches
     //         .match(event.request)
-    //         .then(response =>{
-    //             if(response){
-    //                 return response;
-    //             }
-
-    //             return fetch (event.request)
-    //                 .then((response) => {
-    //                     if (!response || !response.basic || !response.status !==200){
-    //                         console.log('fetch response: ', response);
-    //                         return response;
-    //                     }
-
-    //                     //response is a stream, reading will consume the response
-    //                     const responseToCache = response.clone();
-
-    //                     caches
-    //                         .open(cacheName)
-    //                         .then(cache => {
-    //                             cache.put(event.request, responseToCache);
-    //                         })
-    //                         .catch(err => console.log(err));
-
-    //                         return response;
-    //                 });
+    //         .then(response => {
+    //             return response || fetch(event.request);
     //         })
-    //         .catch(err => console.log('error'))
-    // )
+    //         .catch(err => console.log(err))
+    // );
+
+    // another way of doing it 
+    event.respondWith(
+        caches
+            .match(event.request)
+            .then(response =>{
+                if(response){
+                    return response;
+                }
+
+                return fetch (event.request)
+                    .then((response) => {
+                        if (!response || !response.basic || !response.status !==200){
+                            console.log('fetch response: ', response);
+                            return response;
+                        }
+
+                        //response is a stream, reading will consume the response
+                        const responseToCache = response.clone();
+
+                        caches
+                            .open(cacheName)
+                            .then(cache => {
+                                cache.put(event.request, responseToCache);
+                            })
+                            .catch(err => console.log(err));
+
+                            return response;
+                    });
+            })
+            .catch(err => console.log('error'))
+    )
 });
